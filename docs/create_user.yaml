@@ -1,0 +1,200 @@
+openapi: 3.1.0
+info:
+  title: HomeBase API
+  summary: REST APIs for managing user accounts and profiles
+  version: '1.0'
+servers:
+  - url: http://localhost:9000
+    description: Local development environment
+ 
+paths:
+  /users:
+    post:
+      operationId: create-user
+      description: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: User created successfully
+          content:
+            application/json:
+              example:
+                userId: "u123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "john.doe@example.com"
+        400:
+          description: Invalid request data
+        500:
+          description: Internal server error
+ 
+    get:
+      operationId: list-users
+      description: Retrieve all users
+      responses:
+        200:
+          description: Successfully retrieved users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+              example:
+                - userId: "u123"
+                  firstName: "John"
+                  lastName: "Doe"
+                  email: "john.doe@example.com"
+                - userId: "u124"
+                  firstName: "Jane"
+                  lastName: "Doe"
+                  email: "jane.doe@example.com"
+        401:
+          description: Unauthorized
+        500:
+          description: Internal server error
+ 
+  /users/{userId}:
+    get:
+      operationId: get-user
+      description: Retrieve a specific user by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved the user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+              example:
+                userId: "u123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "john.doe@example.com"
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+ 
+    put:
+      operationId: update-user
+      description: Update a specific user's profile with all fields
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              firstName: "John"
+              lastName: "Doe"
+              email: "john.newemail@example.com"
+      responses:
+        200:
+          description: User profile updated successfully
+          content:
+            application/json:
+              example:
+                userId: "u123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "john.newemail@example.com"
+        400:
+          description: Invalid request data
+        500:
+          description: Internal server error
+
+    patch:
+      operationId: partially-update-user
+      description: Partially update a user's profile (only specified fields)
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+            example:
+              email: "john.updatedemail@example.com"
+      responses:
+        200:
+          description: User profile partially updated successfully
+          content:
+            application/json:
+              example:
+                userId: "u123"
+                firstName: "John"
+                lastName: "Doe"
+                email: "john.updatedemail@example.com"
+        400:
+          description: Invalid request data
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+
+    delete:
+      operationId: delete-user
+      description: Delete a specific user by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: User deleted successfully, no content returned
+        404:
+          description: User not found
+        500:
+          description: Internal server error
+ 
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string

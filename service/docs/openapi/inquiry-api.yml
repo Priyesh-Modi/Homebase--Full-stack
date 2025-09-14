@@ -1,0 +1,182 @@
+openapi: 3.1.0
+info:
+  title: HomeBase API - Inquiry
+  summary: REST APIs for managing inquiries
+  version: '1.0'
+servers:
+  - url: http://localhost:9000
+    description: Local development environment
+
+paths:
+  /inquiries:
+    post:
+      operationId: create-inquiry
+      description: Create a new inquiry for a property
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Inquiry"
+            example:
+              userId: "u123"
+              propertyId: "p123"
+              message: "Is this property still available?"
+      responses:
+        201:
+          description: Inquiry created successfully
+          content:
+            application/json:
+              example:
+                inquiryId: "i123"
+                userId: "u123"
+                propertyId: "p123"
+                message: "Is this property still available?"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for creating the inquiry."
+
+  /inquiries/{inquiryId}:
+    get:
+      operationId: get-inquiry
+      description: Retrieve details of a specific inquiry
+      parameters:
+        - name: inquiryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved inquiry details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Inquiry"
+              example:
+                inquiryId: "i123"
+                userId: "u123"
+                propertyId: "p123"
+                message: "Is this property still available?"
+        404:
+          description: Inquiry not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Inquiry not found."
+
+    put:
+      operationId: update-inquiry
+      description: Update inquiry message
+      parameters:
+        - name: inquiryId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Inquiry"
+            example:
+              message: "Is this property available for rent?"
+      responses:
+        200:
+          description: Successfully updated inquiry details
+          content:
+            application/json:
+              example:
+                inquiryId: "i123"
+                userId: "u123"
+                propertyId: "p123"
+                message: "Is this property available for rent?"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the inquiry."
+        404:
+          description: Inquiry not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Inquiry not found."
+
+    delete:
+      operationId: delete-inquiry
+      description: Delete inquiry by inquiry ID
+      parameters:
+        - name: inquiryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Successfully deleted inquiry
+        404:
+          description: Inquiry not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Inquiry not found."
+
+    patch:
+      operationId: patch-inquiry
+      description: Partially update inquiry message
+      parameters:
+        - name: inquiryId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Inquiry"
+            example:
+              message: "Is this property still available for viewing?"
+      responses:
+        200:
+          description: Successfully updated inquiry message
+          content:
+            application/json:
+              example:
+                inquiryId: "i123"
+                userId: "u123"
+                propertyId: "p123"
+                message: "Is this property still available for viewing?"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the inquiry."
+
+components:
+  schemas:
+    Inquiry:
+      type: object
+      properties:
+        inquiryId:
+          type: string
+        userId:
+          type: string
+        propertyId:
+          type: string
+        message:
+          type: string

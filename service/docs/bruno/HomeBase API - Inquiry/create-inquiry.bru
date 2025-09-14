@@ -1,0 +1,20 @@
+meta {
+  name: create-inquiry
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3002/inquiry
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "inquiryId": "3",
+    "userId": "3",
+    "propertyId": "",
+    "message": "Demo"
+  }
+}

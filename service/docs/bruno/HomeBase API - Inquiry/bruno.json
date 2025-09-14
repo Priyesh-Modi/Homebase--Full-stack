@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "HomeBase API - Inquiry",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: HomeBase API - Listing
+  summary: REST APIs for managing property listings
+  version: '1.0'
+servers:
+  - url: http://localhost:9000
+    description: Local development environment
+ 
+paths:
+  /listings:
+    post:
+      operationId: create-listing
+      description: Create a new property listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Listing"
+            example:
+              propertyId: "p123"
+              title: "Luxury Apartment in City Center"
+              price: 1200000
+              description: "Spacious 3BHK apartment with modern amenities"
+              status: "available"
+      responses:
+        201:
+          description: Listing created successfully
+          content:
+            application/json:
+              example:
+                listingId: "l123"
+                propertyId: "p123"
+                title: "Luxury Apartment in City Center"
+                price: 1200000
+                status: "available"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for creating the listing."
+ 
+  /listings/{listingId}:
+    get:
+      operationId: get-listing
+      description: Retrieve details of a specific listing
+      parameters:
+        - name: listingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved listing details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Listing"
+              example:
+                listingId: "l123"
+                propertyId: "p123"
+                title: "Luxury Apartment in City Center"
+                price: 1200000
+                status: "available"
+        404:
+          description: Listing not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Listing not found."
+ 
+    put:
+      operationId: update-listing
+      description: Update listing details
+      parameters:
+        - name: listingId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Listing"
+            example:
+              price: 1150000
+              status: "sold"
+      responses:
+        200:
+          description: Successfully updated listing details
+          content:
+            application/json:
+              example:
+                listingId: "l123"
+                propertyId: "p123"
+                title: "Luxury Apartment in City Center"
+                price: 1150000
+                status: "sold"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the listing."
+        404:
+          description: Listing not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Listing not found."
+ 
+    delete:
+      operationId: delete-listing
+      description: Delete listing by listing ID
+      parameters:
+        - name: listingId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Successfully deleted listing
+        404:
+          description: Listing not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Listing not found."
+ 
+    patch:
+      operationId: patch-listing
+      description: Partially update listing details
+      parameters:
+        - name: listingId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Listing"
+            example:
+              status: "pending"
+      responses:
+        200:
+          description: Successfully updated listing details
+          content:
+            application/json:
+              example:
+                listingId: "l123"
+                propertyId: "p123"
+                title: "Luxury Apartment in City Center"
+                price: 1200000
+                status: "pending"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the listing."
+ 
+components:
+  schemas:
+    Listing:
+      type: object
+      properties:
+        listingId:
+          type: string
+        propertyId:
+          type: string
+        title:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        status:
+          type: string
+ 
+ 

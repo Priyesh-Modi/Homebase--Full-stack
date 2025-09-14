@@ -1,0 +1,20 @@
+meta {
+  name: create-user
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3002/user
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "userId": "6",
+    "firstName": "Priyesh2",
+    "lastName": "Modi2",
+    "email": "priye22sh@xyz.com"
+  }
+}

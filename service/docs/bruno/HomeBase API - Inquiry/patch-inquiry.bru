@@ -1,0 +1,23 @@
+meta {
+  name: patch-inquiry
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3002/inquiry/4
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "_id": "673c9d54e54c68c7c5e8c412",
+    "inquiryId": "1",
+    "userId": "1",
+    "propertyId": "1",
+    "message": "Hi there",
+    "createdAt": "2024-11-19T14:14:44.655Z",
+    "__v": 0
+  }
+}

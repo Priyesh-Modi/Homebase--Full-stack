@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "HomeBase API - User",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

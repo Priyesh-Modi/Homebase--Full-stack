@@ -1,0 +1,19 @@
+meta {
+  name: partially-update-user
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3002/user/2
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "",
+    "lastName": "",
+    "email": ""
+  }
+}

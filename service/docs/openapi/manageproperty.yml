@@ -1,0 +1,195 @@
+openapi: 3.1.0
+info:
+  title: HomeBase API - property
+  summary: REST APIs for managing properties
+  version: "1.0"
+servers:
+  - url: http://localhost:9000
+    description: Local development environment
+
+paths:
+  /properties:
+    post:
+      operationId: create-property
+      description: Add a new property listing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Property"
+            example:
+              address: "123 Main St"
+              city: "Los Angeles"
+              price: 500000
+              propertyType: "House"
+              description: "Beautiful family home"
+      responses:
+        201:
+          description: Property created successfully
+          content:
+            application/json:
+              example:
+                propertyId: "p123"
+                address: "123 Main St"
+                city: "Los Angeles"
+                price: 500000
+                propertyType: "House"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for creating the property."
+
+  /properties/{propertyId}:
+    get:
+      operationId: get-property
+      description: Retrieve details of a specific property
+      parameters:
+        - name: propertyId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully retrieved property details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Property"
+              example:
+                propertyId: "p123"
+                address: "123 Main St"
+                city: "Los Angeles"
+                price: 500000
+                propertyType: "House"
+        404:
+          description: Property not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Property not found."
+
+    put:
+      operationId: update-property
+      description: Update property details
+      parameters:
+        - name: propertyId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Property"
+            example:
+              address: "456 New St"
+              city: "San Francisco"
+              price: 600000
+              propertyType: "Apartment"
+      responses:
+        200:
+          description: Successfully updated property details
+          content:
+            application/json:
+              example:
+                propertyId: "p123"
+                address: "456 New St"
+                city: "San Francisco"
+                price: 600000
+                propertyType: "Apartment"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the property."
+        404:
+          description: Property not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Property not found."
+
+    delete:
+      operationId: delete-property
+      description: Delete property listing by property ID
+      parameters:
+        - name: propertyId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        204:
+          description: Successfully deleted property
+        404:
+          description: Property not found
+          content:
+            application/json:
+              example:
+                code: "404"
+                message: "Property not found."
+
+    patch:
+      operationId: patch-property
+      description: Partially update property details
+      parameters:
+        - name: propertyId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Property"
+            example:
+              price: 550000
+      responses:
+        200:
+          description: Successfully updated property details
+          content:
+            application/json:
+              example:
+                propertyId: "p123"
+                address: "123 Main St"
+                city: "Los Angeles"
+                price: 550000
+                propertyType: "House"
+        400:
+          description: Invalid input data
+          content:
+            application/json:
+              example:
+                code: "400"
+                message: "Invalid data provided for updating the property."
+
+components:
+  schemas:
+    Property:
+      type: object
+      properties:
+        propertyId:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        price:
+          type: number
+        propertyType:
+          type: string
+        description:
+          type: string

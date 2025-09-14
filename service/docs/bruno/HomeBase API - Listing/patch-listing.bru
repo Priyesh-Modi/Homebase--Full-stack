@@ -1,0 +1,23 @@
+meta {
+  name: patch-listing
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:3002/listing/673be49444328d7999c29767
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "_id": "673be49444328d7999c29767",
+    "propertyId": "234567",
+    "title": "hOME123",
+    "price": 1234,
+    "description": "HELLO",
+    "status": "RENT",
+    "__v": 0
+  }
+}

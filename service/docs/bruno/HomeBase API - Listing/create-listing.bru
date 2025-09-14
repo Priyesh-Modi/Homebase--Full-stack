@@ -1,0 +1,22 @@
+meta {
+  name: create-listing
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3002/listing
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "listingId": "1",
+    "propertyId": "20",
+    "title": "Newdemo",
+    "price": "10000",
+    "description": "Newdemo",
+    "status": "Rent"
+  }
+}
