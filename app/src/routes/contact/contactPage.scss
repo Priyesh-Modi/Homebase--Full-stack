@@ -1,0 +1,88 @@
+@import "../../responsive.scss";
+
+.contactPage {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+
+  .textContainer {
+    flex: 2;
+
+    .wrapper {
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 30px;
+
+      .title {
+        font-size: 48px;
+
+        @include lg {
+          font-size: 36px;
+        }
+      }
+
+      .contactInfo {
+        display: flex;
+        justify-content: space-between;
+
+        @include sm {
+          flex-direction: column;
+        }
+
+        .infoBox {
+          flex: 1;
+          margin: 0 20px;
+
+          h2 {
+            font-size: 24px;
+          }
+
+          p {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+  }
+
+  .formContainer {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcf5f3;
+
+    .contactForm {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      @include md {
+        width: 70%;
+      }
+
+      @include sm {
+        width: 90%;
+      }
+
+      input, textarea {
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      button {
+        padding: 12px;
+        border: none;
+        background-color: #fece51;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+  }
+}

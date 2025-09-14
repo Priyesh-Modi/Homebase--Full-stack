@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+
+    "jsx": "react-jsx",
+    "target": "esnext",                              /* Use esnext for better compatibility with modern JavaScript features */
+    "module": "esnext",                              /* Prefer esnext for better compatibility with Vite */
+    "esModuleInterop": true,                         /* Enable compatibility with CommonJS modules */
+    "forceConsistentCasingInFileNames": true,        /* Ensure consistent casing in imports */
+    "strict": true,                                  /* Enable all strict type-checking options */
+    "skipLibCheck": true,                            /* Skip type-checking for all .d.ts files */
+    "resolveJsonModule": true,                       /* Allow importing JSON files */
+    "moduleResolution": "node",                      /* Use Node's module resolution strategy */
+    "noEmit": true,                                  /* Don't emit JavaScript files */
+    "isolatedModules": true,                         /* Ensure each file can be safely transpiled independently */
+    "allowSyntheticDefaultImports": true,            /* Allow default imports from CommonJS modules */
+    "jsxImportSource": "react",                      /* Specifies the source for JSX factory functions */
+    "lib": ["dom", "esnext"],                        /* Include DOM and ESNext for broader compatibility */
+    "typeRoots": ["./node_modules/@types"]           /* Specify where to find type definitions */
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
+  ]
+}
